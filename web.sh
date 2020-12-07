@@ -17,15 +17,24 @@ fi
 
 # Make sure we’re using the latest Homebrew.
 brew update
+brew install --cask webstorm
 
-brew install node
+# Install NVM to use node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-# Remove outdated versions from the cellar.
-brew cleanup
+# Install Node version 10, 12, and latest
+nvm install 10
+nvm install 12
+nvm install node
 
-npm install -g coffee-script
-npm install -g grunt-cli
-npm install -g jshint
-npm install -g less
+# Defaulting to Node 12 for now
+nvm use 12
+
+# Install global NPM packages
+npm install -g prettier
+npm install -g typescript
+npm install -g serverless
 
 #gem install jekyll
